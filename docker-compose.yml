@@ -21,6 +21,9 @@ services:
         environment:
             - LOAD_EX=n
             - EXECUTOR=Local
+            - AIRFLOW__CORE__FERNET_KEY='ye6Tte1pPgPB9Xl7QUJSIrRFbtxtLHECKFGrTKy1tGw='
+            - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+            - AIRFLOW__CORE__LOAD_EXAMPLES=False
         logging:
             options:
                 max-size: 10m
@@ -35,3 +38,17 @@ services:
             interval: 30s
             timeout: 30s
             retries: 3
+
+    pgadmin:
+        container_name: pgadmin_container
+        image: dpage/pgadmin4
+        environment:
+            PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
+            PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+        #volumes:
+            #- pgadmin:/root/.pgadmin
+        ports:
+            - "${PGADMIN_PORT:-5050}:80"
+        #networks:
+         #   - postgres
+        restart: unless-stopped

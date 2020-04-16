@@ -1,1 +1,16 @@
-.git
+##Ignore All
+**
+
+##Directories to allow
+!dags
+!env
+!hooks
+!operators
+!scripts
+!config
+
+##Files to allow
+!Pipfile
+!Pipfile.lock
+
+

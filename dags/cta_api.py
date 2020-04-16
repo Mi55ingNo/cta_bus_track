@@ -12,7 +12,6 @@ import json
 import os
 
 
-
 args = {
     "owner": "airflow",
     "start_date": airflow.utils.dates.days_ago(5),
@@ -30,8 +29,9 @@ dag = DAG(dag_id='cta_api',
           dagrun_timeout=timedelta(seconds=120))
 
 def print_context(ds, **kwargs):
-        
-    API_KEY = 'XSrApHqi7EJP62TBQFQYe4xms'         #os.environ.get("CTA_KEY")
+    ti = kwargs['ti']
+    templates_dict = kwargs['templates_dict']
+    API_KEY = templates_dict['api_key']
     print(API_KEY)
     resp = requests.get(f'http://www.ctabustracker.com/bustime/api/v2/getpredictions?key={API_KEY}&stpid=1149&format=json')
     resp_dict = json.loads(resp.text)
@@ -64,6 +64,9 @@ run_this = PythonOperator(
     task_id='print_the_context',
     provide_context=True,
     python_callable=print_context,
+    templates_dict= {
+        'api_key': '{{var.json.cta_pull.api_key}}'
+    },
     dag=dag,
 )
 
