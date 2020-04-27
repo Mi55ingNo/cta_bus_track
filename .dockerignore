@@ -8,6 +8,7 @@
 !operators
 !scripts
 !config
+!providers
 
 ##Files to allow
 !Pipfile

@@ -27,6 +27,7 @@ __pycache__
 
 # Config Files
 airflow.cfg
+docker.env
 
 # Environment Files
 env/

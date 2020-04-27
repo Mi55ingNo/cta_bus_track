@@ -3,9 +3,9 @@ services:
     postgres:
         image: postgres:9.6
         environment:
-            - POSTGRES_USER=airflow
-            - POSTGRES_PASSWORD=airflow
-            - POSTGRES_DB=airflow
+            - POSTGRES_USER=${DB_USER:-airflow}
+            - POSTGRES_PASSWORD=${DB_PASSWORD:-airflow}
+            - POSTGRES_DB=${DB_TYPE:-airflow}
         logging:
             options:
                 max-size: 10m
@@ -19,11 +19,9 @@ services:
         depends_on:
             - postgres
         environment:
-            - LOAD_EX=n
-            - EXECUTOR=Local
-            - AIRFLOW__CORE__FERNET_KEY='ye6Tte1pPgPB9Xl7QUJSIrRFbtxtLHECKFGrTKy1tGw='
-            - AIRFLOW__CORE__EXECUTOR=LocalExecutor
-            - AIRFLOW__CORE__LOAD_EXAMPLES=False
+            - AIRFLOW__CORE__FERNET_KEY=${FERNET_KEY}
+            - AIRFLOW__CORE__EXECUTOR=${AIRFLOW_EXECUTOR:-LocalExecutor}
+            - AIRFLOW__CORE__LOAD_EXAMPLES=${LOAD_EXAMPLES:-False}
         logging:
             options:
                 max-size: 10m
