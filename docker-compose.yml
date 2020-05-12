@@ -50,3 +50,21 @@ services:
         #networks:
          #   - postgres
         restart: unless-stopped
+        
+    influxdb:
+        # Full tag list: https://hub.docker.com/r/library/influxdb/tags/
+        #build:
+            # context: ./images/influxdb/
+            #dockerfile: ./${TYPE}/Dockerfile
+            #args:
+            # INFLUXDB_TAG: ${INFLUXDB_TAG}access
+        image: higbee/influxdb
+        volumes:
+            # Mount for influxdb data directory
+            - ./influxdb/data:/var/lib/influxdb
+            # Mount for influxdb configuration
+            - ./influxdb/config/:/etc/influxdb/
+        ports:
+            # The API for InfluxDB is served on port 8086
+            - "8086:8086"
+            - "8082:8082"
