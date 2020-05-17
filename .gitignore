@@ -31,3 +31,5 @@ docker.env
 
 # Environment Files
 env/
+influxdb/data/
+

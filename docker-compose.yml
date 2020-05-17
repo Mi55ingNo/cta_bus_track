@@ -64,6 +64,8 @@ services:
             - ./influxdb/data:/var/lib/influxdb
             # Mount for influxdb configuration
             - ./influxdb/config/:/etc/influxdb/
+        #command: ["influxd", "restore", "-metadir", "/var/lib/influxdb/meta", "-datadir", "/var/lib/influxdb/data", "-database", "cta", "/backups/cta_bak/"]
+        #command: influxd restore -metadir /var/lib/influxdb/meta -datadir /var/lib/influxdb/data -database cta /var/lib/influxdb/backup
         ports:
             # The API for InfluxDB is served on port 8086
             - "8086:8086"
